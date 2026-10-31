@@ -25,6 +25,15 @@ text, is_normal = make_cow_text()
 counts, bytes_generated = run_kilobytes(1, write_output=False) # Generates 1 KB of cowsay spam
 ```
 
+- `COWSAY_CHARS` - List of alternate characters for anomalous cows (the regular cow isn't in this list).
+- `Cow` - Fundamental dataclass of this silly little library. Set its `name` and optionally its `age`; `.moo()` prints a moo (and the age for normal cows), while `.speak(str)` prints your message.
+- `clear_screen()` - Clear the screen to make room for another Cow.
+- `main()` - Carries the CLI; by default, prints out 100 Cows to terminal.
+- `make_cow_text()` - Build a Cow with a random name, then return its moo text and whether it's normal. By default, normality is random; set `normal_only=True` to guarantee a normal cow.
+- `print_tally()` - Print a tally from a `Counter` object.
+- `rand_cow_name()` - Pick a random cow name from the bundled name list.
+- `run_kilobytes()` - Generate cows until at least the requested number of kilobytes is produced; optionally, write them to standard output.
+
 ## CLI Commands
 - `-h / --help` - View commands
 - `(loops)` - Positional argument; enter a number of cows to generate, either to terminal or piped to a file. Default: 100.

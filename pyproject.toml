@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cowspam"
-version = "1.0.0"
+version = "1.0.1"
 description = "A small, silly, screen-cluttering library derived from Cowsay Python."
 authors = [
     {name = "Ian Rodriguez", email = "rodriguezian403@gmail.com"}
@@ -12,7 +12,7 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
-dependencies = ["cowsay", "faker"]
+dependencies = ["cowsay"]
 
 [project.scripts]
 cowspam = "cowspam.cli:main"
@@ -22,3 +22,6 @@ packages = ["cowspam"]
 
 [tool.setuptools.package-dir]
 cowspam = "src"
+
+[tool.setuptools.package-data]
+"*" = ["*.json"]

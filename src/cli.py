@@ -7,16 +7,12 @@ import time
 from collections import Counter
 from subprocess import run as srun
 
-from faker import Faker
-
 from .Cow import Cow
-from .generator import run_kilobytes
-
+from .generator import rand_cow_name, run_kilobytes
 
 def clear_screen() -> None:
     command = "cls" if os.name == "nt" else "clear"
     srun(command, shell=True)
-
 
 def print_tally(counter: Counter[str], file=None) -> None:
     total = sum(counter.values())
@@ -43,7 +39,7 @@ def main() -> int:
         "-f",
         "--flash",
         action="store_true",
-        help="Clear the screen for each cow, creating a flashing effect",
+        help="(Epilepsy warning) Clear the screen for each cow, creating a flashing effect",
     )
     parser.add_argument(
         "loops",
@@ -98,12 +94,11 @@ def main() -> int:
         return 0
 
     cow_counter: Counter[str] = Counter()
-    fake = Faker()
     for _ in range(args.loops):
         if not auto:
             time.sleep(1)
         cow = Cow(
-            fake.first_name_female(),
+            rand_cow_name(),
             is_normal_cow=True if args.normal else None,
         )
         if flash:

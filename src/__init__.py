@@ -2,7 +2,7 @@
 
 from .Cow import COWSAY_CHARS, Cow
 from .cli import clear_screen, main, print_tally
-from .generator import make_cow_text, run_kilobytes
+from .generator import make_cow_text, rand_cow_name, run_kilobytes
 
 __all__ = [
     "COWSAY_CHARS",
@@ -11,5 +11,6 @@ __all__ = [
     "main",
     "make_cow_text",
     "print_tally",
+    "rand_cow_name",
     "run_kilobytes",
 ]

@@ -1,38 +1,31 @@
 from __future__ import annotations
 
+import json
+import random
 import sys
-import threading
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
-
-from faker import Faker
+from importlib.resources import files
 
 from .Cow import Cow
 
+COW_NAMES = json.loads(
+    files(__package__).joinpath("cow_names.json").read_text(encoding="utf-8")
+)
 KB_BATCH_SIZE = 64
-_thread_local = threading.local()
 
-
-def _get_faker() -> Faker:
-    if not hasattr(_thread_local, "fake"):
-        _thread_local.fake = Faker()
-    return _thread_local.fake
-
+def rand_cow_name():
+    return random.choice(COW_NAMES)
 
 def make_cow_text(normal_only: bool = False) -> tuple[str, bool]:
     """Build one random cow and return its rendered text and normality."""
     cow = Cow(
-        _get_faker().first_name_female(),
+        rand_cow_name(),
         is_normal_cow=True if normal_only else None,
     )
     return cow.moo_text(), cow.is_normal_cow
 
-
-def run_kilobytes(
-    kilobytes: int,
-    write_output: bool,
-    normal_only: bool = False,
-) -> tuple[Counter[str], int]:
+def run_kilobytes(kilobytes: int, write_output: bool, normal_only: bool = False) -> tuple[Counter[str], int]:
     """Generate cows in a thread pool until at least `kilobytes` KB are produced."""
     target = kilobytes * 1024
     produced = 0
