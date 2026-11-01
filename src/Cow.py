@@ -11,7 +11,6 @@ COWSAY_CHARS = [
     if character not in ["cow", "beavis", "ghostbusters", "miki", "stimpy"]
 ]
 
-
 @dataclass
 class Cow:
     name: str = "Unnamed Cow"
@@ -34,7 +33,7 @@ class Cow:
     def _title(self) -> str:
         if "Cow" in self.name:
             return self.name
-        return f"{self.name} the Cow" if self.is_normal_cow else f"{self.name} the {self._rare_char}?"
+        return (f"{self.name} the Cow" if self.is_normal_cow else f"{self.name} the {self._rare_char}?").title()
 
     def _render(self, message: str, signature: str) -> str:
         return cowsay.get_output_string(self._char, f"{message}\n-{signature}")
